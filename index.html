@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寻宝之旅</title>
+    <link rel="stylesheet" href="s3.css">
+</head>
+<body>
+    <h1>寻宝之旅</h1>
+    <div id="player-info">
+        <p id="player-nickname"></p>
+        <p id="player-history"></p>
+    </div>
+    <div id="game">
+        <div id="clue"></div>
+        <div id="location"></div>
+        <div id="box"></div>
+        <div id="maze"></div>
+        <div id="treasure"></div>
+    </div>
+    <audio id="background-music" loop autoplay>
+        <source src="music/background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <script src="game.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神秘元素展示</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>神秘元素资料展示</h1>
+
+  <h2>图书馆</h2>
+  <div id="library"></div>
+
+  <h2>神庙</h2>
+  <div id="temple"></div>
+
+  <h2>守卫</h2>
+  <div id="guard"></div>
+
+  <h2>迷宫</h2>
+  <div id="maze"></div>
+
+  <h2>宝藏</h2>
+  <div id="treasure"></div>
+
+  <script>
+    const elements = ['library', 'temple', 'guard','maze', 'treasure'];
+
+    elements.forEach(element => {
+      const elementFile = `${element}.txt`;
+      fetch(elementFile)
+      .then(response => {
+          if (!response.ok) {
+            throw new Error(`加载${elementFile}失败`);
+          }
+          return response.text();
+        })
+      .then(data => {
+          const displayDiv = document.getElementById(element);
+          const p = document.createElement('p');
+          p.textContent = data;
+          displayDiv.appendChild(p);
+        })
+      .catch(error => {
+          console.error(error);
+        });
+    });
+  </script>
+
+</body>
+
+</html>
